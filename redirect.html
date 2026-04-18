@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+</head>
+<body>
+    <div style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+        <p>Redirecting to your room...</p>
+    </div>
+
+    <script>
+        async function redirectToRoom() {
+            try {
+                const response = await fetch('https://demo-api.tutturu.workers.dev/');
+                const data = await response.json();
+                
+                if (data && data.url) {
+                    window.location.href = data.url;
+                } else {
+                    console.error('URL not found in response');
+                    document.body.innerHTML += '<p style="color: red;">Error: Could not find redirect URL.</p>';
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                document.body.innerHTML += '<p style="color: red;">Error: Failed to fetch the room data.</p>';
+            }
+        }
+
+        redirectToRoom();
+    </script>
+</body>
+</html>
